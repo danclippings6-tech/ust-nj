@@ -90,7 +90,7 @@ Add site in Cloudflare → change nameservers at the registrar to Cloudflare’s
 
 ## Part D — After the site is live (same day)
 
-1. **Replace phone/email** on the site (search for `XXX` and `hello@ustnj.com` if needed), commit, push:
+1. **Replace phone/email** on the site (search for `XXX` and `info@ustnj.com` if needed), commit, push:
 
 ```powershell
 cd C:\Users\Eagle\ust-nj

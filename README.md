@@ -21,7 +21,7 @@ python -m http.server 8080
 
 ## Before launch
 
-1. Replace placeholders: `hello@ustnj.com`, `(XXX) XXX-XXXX`, domain `ustnj.com`
+1. Replace placeholders: `info@ustnj.com`, `(XXX) XXX-XXXX`, domain `ustnj.com`
 2. Buy domain (recommended: **ustnj.com** — also fine: `ustnj.net`, `ustoperatorsnj.com`)
 3. Deploy static folder → Cloudflare Pages / Netlify / GitHub Pages
 4. Google Search Console + submit `sitemap.xml`

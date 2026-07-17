@@ -55,7 +55,7 @@
         ].join("\n")
       );
 
-      var to = form.getAttribute("data-email") || "hello@ustnj.com";
+      var to = form.getAttribute("data-email") || "info@ustnj.com";
       window.location.href = "mailto:" + to + "?subject=" + subject + "&body=" + body;
 
       var ok = document.getElementById("form-success");
