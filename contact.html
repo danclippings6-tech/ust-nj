@@ -57,11 +57,14 @@
       <div class="wrap form-grid">
         <div class="form-card">
           <h2>Request a call-back</h2>
-          <p class="sub">About 60 seconds. Opens your email app with a ready message (no account needed).</p>
+          <p class="sub">Fill this out and hit send — it emails us directly. No app, no extra steps.</p>
           <div id="form-success" class="form-success" tabindex="-1" role="status">
-            Your email app should open with the message ready. If not, email info@ustnj.com.
+            Sent. We’ll get back to you soon (usually same day). Check your phone/email.
           </div>
+          <div id="form-error" class="form-error" tabindex="-1" role="alert"></div>
           <form id="contact-form" data-email="info@ustnj.com" novalidate>
+            <!-- honeypot anti-spam (leave empty) -->
+            <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <div class="field-row">
               <div class="field">
                 <label for="name">Your name *</label>

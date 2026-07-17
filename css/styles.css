@@ -495,6 +495,24 @@ textarea { min-height: 120px; resize: vertical; }
   padding: 1rem; margin-bottom: 1rem; font-weight: 600;
 }
 .form-success.show { display: block; }
+.form-error {
+  display: none; background: #fdecea; color: var(--red);
+  border: 1px solid #f5c2c0; border-radius: var(--radius-sm);
+  padding: 1rem; margin-bottom: 1rem; font-weight: 600;
+}
+.form-error.show { display: block; }
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+button[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
 .checkbox-row {
   display: flex; gap: 0.55rem; align-items: flex-start;
   font-size: 0.9rem; color: var(--slate); margin-bottom: 1rem;
