@@ -16,32 +16,42 @@
     });
   }
 
+  // Show success after FormSubmit redirect back (?sent=1)
+  var params = new URLSearchParams(window.location.search);
+  if (params.get("sent") === "1") {
+    var ok = document.getElementById("form-success");
+    var form = document.getElementById("contact-form");
+    if (ok) {
+      ok.classList.add("show");
+      ok.focus();
+    }
+    if (form) form.reset();
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+  }
+
   var form = document.getElementById("contact-form");
   if (form) {
     form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
       var data = new FormData(form);
-      // Honeypot — bots fill this; humans never see it
+
+      // Honeypot — bots fill this
       if ((data.get("_gotcha") || "").toString().trim()) {
+        e.preventDefault();
         return;
       }
 
       var name = (data.get("name") || "").toString().trim();
       var email = (data.get("email") || "").toString().trim();
       var phone = (data.get("phone") || "").toString().trim();
-      var company = (data.get("company") || "").toString().trim();
-      var city = (data.get("city") || "").toString().trim();
-      var sites = (data.get("sites") || "").toString().trim();
-      var service = (data.get("service") || "").toString().trim();
-      var message = (data.get("message") || "").toString().trim();
       var consent = data.get("consent");
-
       var err = document.getElementById("form-error");
       var ok = document.getElementById("form-success");
       var btn = form.querySelector('button[type="submit"]');
 
       function showError(msg) {
+        e.preventDefault();
         if (ok) ok.classList.remove("show");
         if (err) {
           err.textContent = msg;
@@ -52,17 +62,8 @@
         }
       }
 
-      function showSuccess() {
-        if (err) err.classList.remove("show");
-        if (ok) {
-          ok.classList.add("show");
-          ok.focus();
-        }
-        form.reset();
-      }
-
       if (!name || !email || !phone) {
-        showError("Please add your name, email, and phone so we can reach you.");
+        showError("Please add your name, email, and phone.");
         return;
       }
       if (!consent) {
@@ -70,64 +71,25 @@
         return;
       }
 
-      var to = form.getAttribute("data-email") || "info@ustnj.com";
-      var payload = {
-        name: name,
-        email: email,
-        phone: phone,
-        company: company || "—",
-        city: city || "—",
-        sites: sites || "—",
-        service: service || "Not sure — help me choose",
-        message: message || "(none)",
-        _subject: "UST NJ inquiry: " + (service || "General") + (company ? " — " + company : ""),
-        _template: "table",
-        _captcha: "false"
-      };
+      // Build subject for FormSubmit
+      var service = (data.get("service") || "").toString().trim();
+      var company = (data.get("company") || "").toString().trim();
+      var subjectInput = form.querySelector('input[name="_subject"]');
+      if (subjectInput) {
+        subjectInput.value =
+          "UST NJ lead: " +
+          (service || "General") +
+          (company ? " — " + company : "") +
+          " — " +
+          name;
+      }
 
+      if (err) err.classList.remove("show");
       if (btn) {
         btn.disabled = true;
-        btn.setAttribute("data-label", btn.textContent);
         btn.textContent = "Sending…";
       }
-      if (err) err.classList.remove("show");
-      if (ok) ok.classList.remove("show");
-
-      // Sends real email to info@ustnj.com (no email app)
-      fetch("https://formsubmit.co/ajax/" + encodeURIComponent(to), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        },
-        body: JSON.stringify(payload)
-      })
-        .then(function (res) {
-          return res.json().then(function (body) {
-            return { ok: res.ok, body: body };
-          });
-        })
-        .then(function (result) {
-          if (result.ok || (result.body && result.body.success === "true") || (result.body && result.body.success === true)) {
-            showSuccess();
-            return;
-          }
-          var msg =
-            (result.body && (result.body.message || result.body.error)) ||
-            "Could not send. Email info@ustnj.com or call (201) 815-4235.";
-          showError(String(msg));
-        })
-        .catch(function () {
-          showError(
-            "Could not send right now. Email info@ustnj.com or call/text (201) 815-4235."
-          );
-        })
-        .finally(function () {
-          if (btn) {
-            btn.disabled = false;
-            btn.textContent = btn.getAttribute("data-label") || "Send to UST NJ";
-          }
-        });
+      // Native form POST continues → FormSubmit → your inbox
     });
   }
 
