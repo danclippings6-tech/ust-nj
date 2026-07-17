@@ -584,8 +584,9 @@ button[type="submit"]:disabled {
   background: var(--white); border: 1px solid var(--line);
   border-radius: var(--radius-sm); padding: 0.75rem 0.85rem;
   font-weight: 600; font-size: 0.95rem; color: var(--navy);
+  text-decoration: none; display: block;
 }
-.county:hover { border-color: var(--amber-hot); background: var(--amber-soft); }
+a.county:hover { border-color: var(--amber-hot); background: var(--amber-soft); color: var(--ink); }
 
 /* —— Blog —— */
 .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }

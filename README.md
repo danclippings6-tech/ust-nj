@@ -76,6 +76,14 @@ Previous draft lived in `tanksimple-nj` (TankSimple brand). **Use this folder (`
 
 ---
 
-## Playbook
+## Playbook (how to run the business)
 
-See `BUSINESS-PLAYBOOK.md` for sales script, delivery checklist, 30-day launch.
+| File | Use |
+|------|-----|
+| **`OPERATING-SYSTEM.md`** | Luke Vander model adapted to UST NJ — full system |
+| **`SCRIPTS.md`** | Call / text / close scripts |
+| **`LEADS.csv`** | Track station outreach |
+| `BUSINESS-PLAYBOOK.md` | Original launch notes |
+
+### County SEO pages (local lead gen)
+`counties/*.html` — e.g. “Class A/B operator Bergen County NJ”
